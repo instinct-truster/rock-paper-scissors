@@ -34,9 +34,8 @@ function playRound(playerSelection, computerSelection) {
 function game() {
   const computerChoice = getComputerChoice();
   const playerChoice = prompt(
-    "Select your choice by typing out ROCK, PAPER or SCISSORS" +
-      "\n" +
-      `Player: ${playerScore} | CPU: ${computerScore}`
+    `Select your choice by typing out ROCK, PAPER or SCISSORS.
+Player: ${playerScore} | CPU: ${computerScore}`
   );
   const result = playRound(playerChoice, computerChoice);
   console.log(result);
