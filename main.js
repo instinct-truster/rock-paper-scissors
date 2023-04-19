@@ -1,60 +1,82 @@
-let playerScore = 0;
-let computerScore = 0;
+let warriorScore = 0;
+let smaugScore = 0;
 
-function getComputerChoice() {
-  let computerChoice = Math.floor(Math.random() * 3);
-  if (computerChoice === 0) {
+function getSmaugChoice() {
+  let smaugChoice = Math.floor(Math.random() * 3);
+  if (smaugChoice === 0) {
     return "ROCK";
-  } else if (computerChoice === 1) {
+  } else if (smaugChoice === 1) {
     return "PAPER";
-  } else {
-    return "SCISSORS";
   }
+  return "SCISSORS";
 }
 
-function playRound(playerSelection, computerSelection) {
-  const playerChoice = playerSelection.toUpperCase();
-  const computerChoice = computerSelection.toUpperCase();
-
-  if (playerChoice === computerChoice) {
-    return "You Tied!";
-  } else if (
-    (playerChoice === "ROCK" && computerChoice === "SCISSORS") ||
-    (playerChoice === "PAPER" && computerChoice === "ROCK") ||
-    (playerChoice === "SCISSORS" && computerChoice === "PAPER")
-  ) {
-    playerScore++;
-    return "You won! " + playerChoice + " beats " + computerChoice;
-  } else {
-    computerScore++;
-    return "You lost. " + computerChoice + " beats " + playerChoice;
-  }
-}
-
-function game() {
-  const computerChoice = getComputerChoice();
-  const playerChoice = prompt(
-    `Select your choice by typing out ROCK, PAPER or SCISSORS.
-Player: ${playerScore} | CPU: ${computerScore}`
+function getWarriorChoice() {
+  const warriorChoice = prompt(
+    `Please type out your choice of either ROCK, PAPER, or SCISSORS"
+  Warrior's Score: ${warriorScore} |||  Smaug's Score: ${smaugScore}`
   );
-  const result = playRound(playerChoice, computerChoice);
-  console.log(result);
-  console.log(playerScore);
-  console.log(computerScore);
-}
-
-for (let i = 0; i < 5; i++) {
-  game();
-}
-
-function getWinner(playerScore, computerScore) {
-  if (playerScore === computerScore) {
-    return "Tie game!";
-  } else if (playerScore > computerScore) {
-    return "You win!";
-  } else {
-    return "You lose!";
+  if (warriorChoice === null) {
+    return "";
   }
+  return warriorChoice.toUpperCase();
 }
 
-alert(getWinner(playerScore, computerScore));
+function playMatch() {
+  const warriorChoice = getWarriorChoice();
+  const smaugChoice = getSmaugChoice();
+
+  if (warriorChoice === smaugChoice) {
+    alert("Match tied, no score change.");
+  } else if (
+    (warriorChoice === "ROCK" && smaugChoice === "SCISSORS") ||
+    (warriorChoice === "PAPER" && smaugChoice === "ROCK") ||
+    (warriorChoice === "SCISSORS" && smaugChoice === "PAPER")
+  ) {
+    warriorScore++;
+    alert(`Warrior Wins! Warrior: ${warriorScore} ||| Smaug ${smaugScore}`);
+  } else if (
+    (warriorChoice === "SCISSORS" && smaugChoice === "ROCK") ||
+    (warriorChoice === "ROCK" && smaugChoice === "PAPER") ||
+    (warriorChoice === "PAPER" && smaugChoice === "SCISSORS")
+  ) {
+    smaugScore++;
+    alert(
+      `Smaug Wins! Warrior's Score: ${warriorScore} ||| Smaug's Score ${smaugScore}`
+    );
+  } else {
+    alert("Invalid entry, please try again.");
+  }
+
+  if (warriorScore === 4) {
+    alert("Warrior needs only one more to win!");
+  }
+  if (smaugScore === 4) {
+    alert("Smaug needs only one more to win!");
+  }
+  if (warriorScore === 5) {
+    alert(
+      "Congratulations! You may now take one item of treasure and leave with your life.  (Please refresh page if you'd like to try again."
+    );
+    return;
+  }
+
+  if (smaugScore === 5) {
+    alert(
+      "Bring some salt and pepper, we're having Roasted Warrior for lunch!  (please refresh page if you'd like to try again.)"
+    );
+    return;
+  }
+
+  playMatch();
+}
+
+alert(`WELCOME TO "ESCAPE FROM SMAUG'S LAIR!"`);
+
+alert("First challenger to score 5 will be crowned the winner.");
+
+alert(
+  "Will you get to leave with the item of your choice, or will you be lunch?"
+);
+
+playMatch();
